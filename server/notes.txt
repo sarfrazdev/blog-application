@@ -1,0 +1,55 @@
+import express from 'express'
+
+const app=express()
+const port=5000;
+app.use(express.json())
+
+// app.get('/',(req,res)=>{
+//     res.send("This is home page")
+// })
+
+const notes=[]
+app.post('/notes',(req,res)=>{
+    const newnotes=req.body
+    notes.push(newnotes)
+
+    res.status(200).json({
+        message:"notes craeted successfully "
+    })
+})
+
+app.patch('/notes/:index',(req,res)=>{
+    const index=req.params.index
+    const description=req.body.description
+    notes[index].description=description
+    res.status(200).json({
+        message: "notes updated successfully"
+    })
+})
+
+app.get('/notes',(_req,res)=>{
+    res.status(200).json({
+        notes,
+        message:"Notes fetched successfully"
+    })
+})
+
+app.delete('/notes/:index',(req,res)=>{
+    const index=req.params.index
+    delete notes[index]
+    res.status(200).json({
+        message:"notes deleted sucessfully"
+    })
+})
+
+
+
+app.listen(port, ()=>{
+    console.log(`Server is running on port : ${port}`);
+})
+
+schema:- 
+
+EmgLunKVJATmzeeu
+ahmadsarfraz6760_db_user
+mongodb+srv://ahmadsarfraz6760_db_user:EmgLunKVJATmzeeu@cluster0.qydhjqz.mongodb.net/
